@@ -2,226 +2,205 @@
 <html lang="it">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<meta name="theme-color" content="#ffffff">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="Goals">
-<title>Biweekly Goals</title>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 :root {
-  --coral: #FF385C;
-  --coral-light: #FFE8EC;
-  --coral-dark: #D90B30;
-  --bg: #FFFFFF;
-  --bg-soft: #F7F7F7;
-  --bg-card: #FFFFFF;
-  --border: #EBEBEB;
-  --border-strong: #D1D1D1;
-  --text: #222222;
-  --text-sub: #717171;
-  --text-hint: #AAAAAA;
-  --green: #008A05;
-  --green-light: #E6F5E6;
-  --shadow-sm: 0 1px 2px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.05);
-  --shadow-md: 0 2px 8px rgba(0,0,0,0.08), 0 8px 24px rgba(0,0,0,0.07);
-  --radius-sm: 8px;
-  --radius: 12px;
-  --radius-lg: 16px;
-  --font: 'Plus Jakarta Sans', -apple-system, sans-serif;
+  --coral: #FF385C; --coral-light: #FFE8EC; --bg: #fff; --bg-soft: #F7F7F7;
+  --border: #EBEBEB; --border-strong: #D1D1D1; --text: #222; --text-sub: #717171;
+  --text-hint: #AAA; --green: #008A05; --shadow: 0 1px 2px rgba(0,0,0,.08),0 4px 12px rgba(0,0,0,.05);
+  --font: 'Plus Jakarta Sans',-apple-system,sans-serif;
 }
-* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
-html,body { background:var(--bg-soft); color:var(--text); font-family:var(--font); min-height:100dvh; overflow-x:hidden; -webkit-font-smoothing:antialiased; }
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;font-family:var(--font);}
+body{background:var(--bg-soft);color:var(--text);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+input,textarea,button{font-family:var(--font);}
+::-webkit-scrollbar{display:none;}
 
-.header { position:sticky; top:0; z-index:100; background:var(--bg); border-bottom:1px solid var(--border); padding:0 20px; height:60px; display:flex; align-items:center; justify-content:space-between; }
-.header-logo { display:flex; align-items:center; gap:8px; }
-.logo-icon { width:32px; height:32px; background:var(--coral); border-radius:8px; display:flex; align-items:center; justify-content:center; color:white; font-size:18px; font-weight:800; flex-shrink:0; }
-.logo-text { font-size:17px; font-weight:800; color:var(--text); letter-spacing:-0.3px; }
-.header-btns { display:flex; gap:8px; align-items:center; }
-.hbtn { width:36px; height:36px; border-radius:50%; border:1px solid var(--border); background:var(--bg); color:var(--text); font-size:15px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.15s; box-shadow:var(--shadow-sm); }
-.hbtn:active { transform:scale(0.92); background:var(--bg-soft); }
+/* HEADER */
+.hdr{position:sticky;top:0;z-index:100;background:var(--bg);border-bottom:1px solid var(--border);padding:0 16px;height:60px;display:flex;align-items:center;justify-content:space-between;}
+.logo{display:flex;align-items:center;gap:8px;}
+.logo-ico{width:32px;height:32px;background:var(--coral);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;}
+.logo-txt{font-size:17px;font-weight:800;letter-spacing:-.3px;}
+.hbtns{display:flex;gap:6px;}
+.hbtn{width:36px;height:36px;border-radius:50%;border:1px solid var(--border);background:var(--bg);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow);transition:all .15s;}
+.hbtn:active{transform:scale(.92);}
+.hbtn.active{border-color:var(--coral);background:var(--coral-light);color:var(--coral);}
+.hbtn.test{font-size:11px;font-weight:700;}
 
-.period-scroll-wrap { background:var(--bg); border-bottom:1px solid var(--border); padding:12px 0 12px 20px; overflow-x:auto; scrollbar-width:none; display:flex; gap:8px; align-items:center; }
-.period-scroll-wrap::-webkit-scrollbar { display:none; }
-.period-pill { flex-shrink:0; padding:8px 16px; border-radius:999px; border:1.5px solid var(--border); background:var(--bg); color:var(--text-sub); font-family:var(--font); font-size:13px; font-weight:600; cursor:pointer; white-space:nowrap; transition:all 0.18s; }
-.period-pill.active { background:var(--text); color:var(--bg); border-color:var(--text); }
-.period-pill:active { transform:scale(0.95); }
-.period-add-pill { flex-shrink:0; margin-right:20px; padding:8px 16px; border-radius:999px; border:1.5px dashed var(--border-strong); background:transparent; color:var(--text-sub); font-family:var(--font); font-size:13px; font-weight:600; cursor:pointer; white-space:nowrap; display:flex; align-items:center; gap:5px; transition:all 0.18s; }
-.period-add-pill:active { border-color:var(--coral); color:var(--coral); }
+/* PERIOD BAR */
+.period-bar{background:var(--bg);border-bottom:1px solid var(--border);padding:12px 0 12px 16px;overflow-x:auto;display:flex;gap:8px;align-items:center;scrollbar-width:none;}
+.pill{flex-shrink:0;padding:8px 16px;border-radius:999px;border:1.5px solid var(--border);background:var(--bg);color:var(--text-sub);font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;transition:all .18s;}
+.pill.active{background:var(--text);color:var(--bg);border-color:var(--text);}
+.pill-add{flex-shrink:0;margin-right:16px;padding:8px 16px;border-radius:999px;border:1.5px dashed var(--border-strong);background:transparent;color:var(--text-sub);font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;display:flex;align-items:center;gap:5px;}
 
-.tab-row { background:var(--bg); display:flex; border-bottom:1px solid var(--border); padding:0 20px; position:sticky; top:61px; z-index:90; }
-.tab { flex:1; padding:14px 0 12px; text-align:center; font-size:13px; font-weight:600; color:var(--text-hint); cursor:pointer; border-bottom:2px solid transparent; transition:all 0.18s; letter-spacing:-0.1px; }
-.tab.active { color:var(--text); border-bottom-color:var(--text); }
+/* TABS */
+.tabs{background:var(--bg);display:flex;border-bottom:1px solid var(--border);padding:0 20px;position:sticky;top:61px;z-index:90;}
+.tab{flex:1;padding:14px 0 12px;text-align:center;font-size:13px;font-weight:600;color:var(--text-hint);cursor:pointer;border-bottom:2px solid transparent;transition:all .18s;}
+.tab.active{color:var(--text);border-bottom-color:var(--text);}
 
-.main { padding:20px 16px 100px; max-width:600px; margin:0 auto; }
+/* MAIN */
+.main{padding:20px 16px 100px;max-width:600px;margin:0 auto;}
 
-.stats-strip { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-bottom:20px; }
-.stat-tile { background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-lg); padding:14px 12px; text-align:center; box-shadow:var(--shadow-sm); }
-.stat-num { font-size:26px; font-weight:800; color:var(--text); letter-spacing:-1px; line-height:1; }
-.stat-num.green { color:var(--green); }
-.stat-num.coral { color:var(--coral); }
-.stat-lbl { font-size:11px; font-weight:600; color:var(--text-hint); margin-top:4px; text-transform:uppercase; letter-spacing:0.4px; }
+/* STATS */
+.stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:20px;}
+.stat{background:var(--bg);border:1px solid var(--border);border-radius:16px;padding:14px 12px;text-align:center;box-shadow:var(--shadow);}
+.stat-n{font-size:26px;font-weight:800;letter-spacing:-1px;line-height:1;}
+.stat-l{font-size:11px;font-weight:600;color:var(--text-hint);margin-top:4px;text-transform:uppercase;letter-spacing:.4px;}
 
-.progress-section { margin-bottom:22px; }
-.progress-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; }
-.progress-label { font-size:13px; font-weight:600; color:var(--text-sub); }
-.progress-pct { font-size:13px; font-weight:700; color:var(--coral); }
-.progress-track { height:6px; background:var(--border); border-radius:99px; overflow:hidden; }
-.progress-fill { height:100%; background:linear-gradient(90deg,var(--coral),#FF6B81); border-radius:99px; transition:width 0.5s cubic-bezier(0.4,0,0.2,1); }
+/* PROGRESS */
+.prog-section{margin-bottom:22px;}
+.prog-hdr{display:flex;justify-content:space-between;margin-bottom:8px;}
+.prog-label{font-size:13px;font-weight:600;color:var(--text-sub);}
+.prog-pct{font-size:13px;font-weight:700;color:var(--coral);}
+.prog-track{height:6px;background:var(--border);border-radius:99px;overflow:hidden;}
+.prog-fill{height:100%;background:linear-gradient(90deg,#FF385C,#FF6B81);border-radius:99px;transition:width .5s cubic-bezier(.4,0,.2,1);}
 
-.section-hdr { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
-.section-title { font-size:15px; font-weight:700; color:var(--text); letter-spacing:-0.2px; }
-.section-sub { font-size:12px; color:var(--text-hint); font-weight:500; }
+/* SECTION HDR */
+.sec-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+.sec-title{font-size:15px;font-weight:700;letter-spacing:-.2px;}
+.sec-sub{font-size:12px;color:var(--text-hint);font-weight:500;}
 
-.goal-card { background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-lg); margin-bottom:10px; overflow:hidden; box-shadow:var(--shadow-sm); transition:box-shadow 0.2s,border-color 0.2s; }
-.goal-card.done { border-color:#C8E6C9; background:#FAFFFE; }
-.goal-card:active { box-shadow:none; }
-.goal-body { padding:16px; display:flex; gap:12px; align-items:flex-start; }
-.check-wrap { flex-shrink:0; margin-top:1px; }
-.check-circle { width:24px; height:24px; border-radius:50%; border:2px solid var(--border-strong); background:transparent; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.2s cubic-bezier(0.4,0,0.2,1); }
-.check-circle.checked { background:var(--green); border-color:var(--green); transform:scale(1.05); }
-.check-circle svg { display:none; }
-.check-circle.checked svg { display:block; }
-.goal-content { flex:1; min-width:0; }
-.goal-title { font-size:15px; font-weight:700; color:var(--text); line-height:1.35; letter-spacing:-0.2px; margin-bottom:3px; }
-.goal-card.done .goal-title { text-decoration:line-through; color:var(--text-hint); }
-.goal-desc { font-size:13px; color:var(--text-sub); line-height:1.5; font-weight:400; }
-.goal-footer { display:flex; align-items:center; justify-content:space-between; margin-top:8px; }
-.att-pill { display:inline-flex; align-items:center; gap:4px; padding:3px 8px; border-radius:6px; background:var(--bg-soft); border:1px solid var(--border); font-size:11px; font-weight:600; color:var(--text-sub); }
-.goal-btns { display:flex; gap:4px; align-items:center; }
-.g-btn { width:28px; height:28px; border-radius:8px; border:1px solid var(--border); background:var(--bg-soft); color:var(--text-sub); font-size:13px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.15s; }
-.g-btn:active { background:var(--border); transform:scale(0.9); }
-.g-btn.del:active { background:#FFE8EC; border-color:var(--coral); color:var(--coral); }
+/* GOAL CARD */
+.goal-card{background:var(--bg);border:1px solid var(--border);border-radius:16px;margin-bottom:10px;overflow:hidden;box-shadow:var(--shadow);transition:box-shadow .2s,border-color .2s,opacity .2s,transform .15s;}
+.goal-card.done{border-color:#C8E6C9;background:#FAFFFE;}
+.goal-card.dragging{opacity:.4;transform:scale(.98);}
+.goal-card.drag-over{border-color:var(--coral);border-style:dashed;box-shadow:0 0 0 2px rgba(255,56,92,.15);}
+.goal-body{padding:16px;display:flex;gap:12px;align-items:flex-start;}
+.drag-handle{flex-shrink:0;display:flex;flex-direction:column;gap:3px;padding:4px 2px;cursor:grab;opacity:.35;transition:opacity .15s;align-self:center;touch-action:none;}
+.drag-handle:hover,.drag-handle:active{opacity:.7;}
+.drag-handle span{display:block;width:16px;height:2px;background:var(--text-sub);border-radius:1px;}
+.check-circle{width:24px;height:24px;border-radius:50%;border:2px solid var(--border-strong);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s cubic-bezier(.4,0,.2,1);flex-shrink:0;margin-top:1px;}
+.check-circle.checked{background:var(--green);border-color:var(--green);transform:scale(1.05);}
+.goal-content{flex:1;min-width:0;}
+.goal-title{font-size:15px;font-weight:700;line-height:1.35;letter-spacing:-.2px;margin-bottom:3px;}
+.done .goal-title{text-decoration:line-through;color:var(--text-hint);}
+.goal-desc{font-size:13px;color:var(--text-sub);line-height:1.5;}
+.goal-footer{display:flex;align-items:center;justify-content:space-between;margin-top:8px;}
+.att-pill{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:6px;background:var(--bg-soft);border:1px solid var(--border);font-size:11px;font-weight:600;color:var(--text-sub);}
+.goal-btns{display:flex;gap:4px;}
+.g-btn{width:28px;height:28px;border-radius:8px;border:1px solid var(--border);background:var(--bg-soft);color:var(--text-sub);font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;}
 
-.att-panel { border-top:1px solid var(--border); background:var(--bg-soft); padding:14px 16px; display:none; }
-.att-panel.open { display:block; animation:fadeIn 0.18s ease; }
-@keyframes fadeIn { from { opacity:0; transform:translateY(-4px); } to { opacity:1; transform:translateY(0); } }
-.att-panel-title { font-size:11px; font-weight:700; color:var(--text-hint); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:10px; }
-.att-list { display:flex; flex-direction:column; gap:6px; margin-bottom:10px; }
-.att-row { display:flex; align-items:center; gap:8px; background:var(--bg); border:1px solid var(--border); border-radius:var(--radius-sm); padding:8px 10px; }
-.att-ico { font-size:14px; flex-shrink:0; }
-.att-txt { flex:1; font-size:12px; font-weight:500; color:var(--text); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-.att-lnk { color:#0066CC; text-decoration:none; }
-.att-lnk:hover { text-decoration:underline; }
-.att-remove { background:none; border:none; color:var(--text-hint); font-size:14px; cursor:pointer; padding:2px 4px; border-radius:4px; line-height:1; transition:color 0.15s; }
-.att-remove:active { color:var(--coral); }
-.add-att-form { display:flex; gap:6px; align-items:center; }
-.att-type-toggle { display:flex; gap:4px; flex-shrink:0; }
-.att-type-btn { width:32px; height:32px; border-radius:8px; border:1.5px solid var(--border); background:var(--bg); font-size:14px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.15s; }
-.att-type-btn.sel { border-color:var(--coral); background:var(--coral-light); }
-.att-type-btn:active { transform:scale(0.9); }
-.att-field { flex:1; height:32px; border:1.5px solid var(--border); border-radius:8px; padding:0 10px; font-family:var(--font); font-size:12px; font-weight:500; color:var(--text); background:var(--bg); outline:none; transition:border-color 0.15s; }
-.att-field:focus { border-color:var(--coral); }
-.att-ok { height:32px; padding:0 12px; border-radius:8px; border:none; background:var(--coral); color:white; font-family:var(--font); font-size:13px; font-weight:700; cursor:pointer; transition:opacity 0.15s; white-space:nowrap; }
-.att-ok:active { opacity:0.8; }
+/* ATT PANEL */
+.att-panel{border-top:1px solid var(--border);background:var(--bg-soft);padding:14px 16px;display:none;}
+.att-panel.open{display:block;}
+.att-panel-title{font-size:11px;font-weight:700;color:var(--text-hint);text-transform:uppercase;letter-spacing:.6px;margin-bottom:10px;}
+.att-list{display:flex;flex-direction:column;gap:6px;margin-bottom:10px;}
+.att-row{display:flex;align-items:center;gap:8px;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:8px 10px;}
+.att-txt{flex:1;font-size:12px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.att-lnk{color:#0066CC;text-decoration:none;}
+.add-att-form{display:flex;gap:6px;align-items:center;}
+.att-type-btn{width:32px;height:32px;border-radius:8px;border:1.5px solid var(--border);background:var(--bg);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.att-type-btn.sel{border-color:var(--coral);background:var(--coral-light);}
+.att-field{flex:1;height:32px;border:1.5px solid var(--border);border-radius:8px;padding:0 10px;font-size:12px;color:var(--text);background:var(--bg);outline:none;}
+.att-field:focus{border-color:var(--coral);}
+.att-ok{height:32px;padding:0 12px;border-radius:8px;border:none;background:var(--coral);color:white;font-size:13px;font-weight:700;cursor:pointer;}
 
-.empty { text-align:center; padding:56px 24px; }
-.empty-icon { width:72px; height:72px; background:var(--coral-light); border-radius:50%; margin:0 auto 20px; display:flex; align-items:center; justify-content:center; font-size:32px; }
-.empty-title { font-size:18px; font-weight:800; color:var(--text); margin-bottom:8px; letter-spacing:-0.3px; }
-.empty-sub { font-size:14px; color:var(--text-sub); line-height:1.6; font-weight:400; }
+/* EMPTY */
+.empty{text-align:center;padding:56px 24px;}
+.empty-ico{width:72px;height:72px;background:var(--coral-light);border-radius:50%;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;font-size:32px;}
+.empty-title{font-size:18px;font-weight:800;margin-bottom:8px;letter-spacing:-.3px;}
+.empty-sub{font-size:14px;color:var(--text-sub);line-height:1.6;}
 
-.fab { position:fixed; bottom:24px; right:20px; height:52px; padding:0 22px; border-radius:999px; border:none; background:var(--coral); color:white; font-family:var(--font); font-size:15px; font-weight:700; cursor:pointer; display:flex; align-items:center; gap:7px; box-shadow:0 4px 14px rgba(255,56,92,0.4),0 2px 4px rgba(255,56,92,0.2); z-index:50; transition:all 0.2s; letter-spacing:-0.2px; }
-.fab:active { transform:scale(0.94); box-shadow:0 2px 6px rgba(255,56,92,0.3); }
+/* FAB */
+.fab{position:fixed;bottom:24px;right:20px;height:52px;padding:0 22px;border-radius:999px;border:none;background:var(--coral);color:white;font-size:15px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:7px;box-shadow:0 4px 14px rgba(255,56,92,.4);z-index:50;transition:all .2s;}
+.fab:active{transform:scale(.94);}
 
-.sheet-backdrop { position:fixed; inset:0; background:rgba(0,0,0,0.45); z-index:200; display:none; align-items:flex-end; }
-.sheet-backdrop.open { display:flex; }
-.sheet-backdrop.open .sheet { animation:sheetUp 0.28s cubic-bezier(0.32,0.72,0,1); }
-@keyframes sheetUp { from { transform:translateY(100%); } to { transform:translateY(0); } }
-.sheet { width:100%; max-width:600px; margin:0 auto; background:var(--bg); border-radius:20px 20px 0 0; padding:0 20px 36px; max-height:88dvh; overflow-y:auto; }
-.sheet-handle { width:36px; height:4px; background:var(--border); border-radius:99px; margin:12px auto 20px; }
-.sheet-title { font-size:18px; font-weight:800; color:var(--text); margin-bottom:20px; letter-spacing:-0.4px; }
-.form-group { margin-bottom:16px; }
-.form-label { display:block; font-size:12px; font-weight:700; color:var(--text-sub); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:7px; }
-.form-input,.form-textarea { width:100%; border:1.5px solid var(--border); border-radius:var(--radius); padding:12px 14px; font-family:var(--font); font-size:15px; font-weight:500; color:var(--text); background:var(--bg); outline:none; transition:border-color 0.18s,box-shadow 0.18s; -webkit-appearance:none; }
-.form-input:focus,.form-textarea:focus { border-color:var(--coral); box-shadow:0 0 0 3px rgba(255,56,92,0.1); }
-.form-textarea { resize:none; height:90px; line-height:1.5; }
-.date-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-.btn-row { display:flex; gap:10px; margin-top:22px; }
-.btn-ghost { flex:1; height:50px; border-radius:var(--radius); border:1.5px solid var(--border); background:transparent; color:var(--text); font-family:var(--font); font-size:15px; font-weight:700; cursor:pointer; transition:all 0.15s; }
-.btn-ghost:active { background:var(--bg-soft); }
-.btn-coral { flex:2; height:50px; border-radius:var(--radius); border:none; background:var(--coral); color:white; font-family:var(--font); font-size:15px; font-weight:800; cursor:pointer; letter-spacing:-0.2px; box-shadow:0 4px 14px rgba(255,56,92,0.3); transition:all 0.15s; }
-.btn-coral:active { opacity:0.85; transform:scale(0.98); }
+/* SHEET */
+.backdrop{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:200;display:none;align-items:flex-end;}
+.backdrop.open{display:flex;}
+.sheet{width:100%;max-width:600px;margin:0 auto;background:var(--bg);border-radius:20px 20px 0 0;padding:0 20px 36px;max-height:88vh;overflow-y:auto;animation:sheetUp .28s cubic-bezier(.32,.72,0,1);}
+@keyframes sheetUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.sheet-handle{width:36px;height:4px;background:var(--border);border-radius:99px;margin:12px auto 20px;}
+.sheet-title{font-size:18px;font-weight:800;margin-bottom:20px;letter-spacing:-.4px;}
+.form-group{margin-bottom:16px;}
+.form-label{display:block;font-size:12px;font-weight:700;color:var(--text-sub);text-transform:uppercase;letter-spacing:.5px;margin-bottom:7px;}
+.form-input{width:100%;border:1.5px solid var(--border);border-radius:12px;padding:12px 14px;font-size:15px;font-weight:500;color:var(--text);background:var(--bg);outline:none;-webkit-appearance:none;transition:border-color .18s,box-shadow .18s;}
+.form-input:focus{border-color:var(--coral);box-shadow:0 0 0 3px rgba(255,56,92,.1);}
+.form-textarea{width:100%;border:1.5px solid var(--border);border-radius:12px;padding:12px 14px;font-size:15px;font-weight:500;color:var(--text);background:var(--bg);outline:none;resize:none;height:90px;line-height:1.5;transition:border-color .18s,box-shadow .18s;}
+.form-textarea:focus{border-color:var(--coral);box-shadow:0 0 0 3px rgba(255,56,92,.1);}
+.date-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.btn-row{display:flex;gap:10px;margin-top:22px;}
+.btn-ghost{flex:1;height:50px;border-radius:12px;border:1.5px solid var(--border);background:transparent;color:var(--text);font-size:15px;font-weight:700;cursor:pointer;}
+.btn-coral{flex:2;height:50px;border-radius:12px;border:none;background:var(--coral);color:white;font-size:15px;font-weight:800;cursor:pointer;box-shadow:0 4px 14px rgba(255,56,92,.3);}
 
-.import-preview { background:var(--bg-soft); border:1px solid var(--border); border-radius:var(--radius); padding:14px; margin-bottom:16px; max-height:180px; overflow-y:auto; display:none; }
-.preview-row { display:flex; align-items:center; gap:8px; padding:5px 0; border-bottom:1px solid var(--border); font-size:13px; color:var(--text-sub); font-weight:500; }
-.preview-row:last-child { border-bottom:none; }
-.preview-stat { font-size:14px; font-weight:700; color:var(--text); padding:6px 0 10px; border-bottom:1px solid var(--border); margin-bottom:6px; }
+/* IMPORT PREVIEW */
+.import-preview{background:var(--bg-soft);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:16px;max-height:180px;overflow-y:auto;display:none;}
+.preview-stat{font-size:14px;font-weight:700;padding:6px 0 10px;border-bottom:1px solid var(--border);margin-bottom:6px;}
+.preview-row{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid var(--border);font-size:13px;color:var(--text-sub);}
+.preview-row:last-child{border-bottom:none;}
 
-.hist-period { background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-lg); margin-bottom:12px; overflow:hidden; box-shadow:var(--shadow-sm); }
-.hist-period-header { padding:14px 16px 10px; border-bottom:1px solid var(--border); }
-.hist-period-name { font-size:14px; font-weight:700; color:var(--text); margin-bottom:6px; }
-.hist-progress-row { display:flex; align-items:center; gap:10px; }
-.hist-track { flex:1; height:4px; background:var(--border); border-radius:99px; overflow:hidden; }
-.hist-fill { height:100%; background:linear-gradient(90deg,var(--coral),#FF6B81); border-radius:99px; }
-.hist-pct { font-size:12px; font-weight:700; color:var(--coral); white-space:nowrap; }
-.hist-goals { padding:8px 16px 12px; }
-.hist-goal-row { display:flex; align-items:center; gap:10px; padding:7px 0; border-bottom:1px solid var(--border); font-size:13px; font-weight:500; }
-.hist-goal-row:last-child { border-bottom:none; }
-.hist-goal-row.done { color:var(--text-hint); text-decoration:line-through; }
+/* HISTORY */
+.hist-card{background:var(--bg);border:1px solid var(--border);border-radius:16px;margin-bottom:12px;overflow:hidden;box-shadow:var(--shadow);}
+.hist-hdr{padding:14px 16px 10px;border-bottom:1px solid var(--border);}
+.hist-name{font-size:14px;font-weight:700;margin-bottom:6px;}
+.hist-prog{display:flex;align-items:center;gap:10px;}
+.hist-track{flex:1;height:4px;background:var(--border);border-radius:99px;overflow:hidden;}
+.hist-fill{height:100%;background:linear-gradient(90deg,#FF385C,#FF6B81);border-radius:99px;}
+.hist-pct{font-size:12px;font-weight:700;color:var(--coral);white-space:nowrap;}
+.hist-goals{padding:8px 16px 12px;}
+.hist-row{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--border);font-size:13px;font-weight:500;}
+.hist-row:last-child{border-bottom:none;}
+.hist-row.done{color:var(--text-hint);text-decoration:line-through;}
 
-.toast { position:fixed; bottom:88px; left:50%; transform:translateX(-50%) translateY(16px); background:var(--text); color:var(--bg); font-size:13px; font-weight:600; padding:10px 20px; border-radius:999px; z-index:999; opacity:0; transition:all 0.25s cubic-bezier(0.4,0,0.2,1); white-space:nowrap; pointer-events:none; letter-spacing:-0.1px; }
-.toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
-input[type="date"] { color-scheme:light; }
-input[type="date"]::-webkit-calendar-picker-indicator { opacity:0.5; }
+/* TOAST */
+.toast{position:fixed;bottom:88px;left:50%;transform:translateX(-50%) translateY(16px);background:var(--text);color:var(--bg);font-size:13px;font-weight:600;padding:10px 20px;border-radius:999px;z-index:999;opacity:0;transition:all .25s cubic-bezier(.4,0,.2,1);white-space:nowrap;pointer-events:none;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+input[type="date"]{color-scheme:light;}
+input[type="date"]::-webkit-calendar-picker-indicator{opacity:.5;}
 </style>
 </head>
 <body>
 
-<div class="header">
-  <div class="header-logo">
-    <div class="logo-icon">🎯</div>
-    <span class="logo-text">Goals</span>
+<!-- HEADER -->
+<div class="hdr">
+  <div class="logo">
+    <div class="logo-ico">🎯</div>
+    <span class="logo-txt">Goals</span>
   </div>
-  <div class="header-btns">
-    <button class="hbtn" id="notifBtn" title="Attiva reminder scadenza">🔕</button>
-    <button class="hbtn" id="testNotifBtn" title="Testa notifica" style="font-size:11px;font-weight:700;letter-spacing:-0.3px">TEST</button>
+  <div class="hbtns">
+    <button class="hbtn" id="notifBtn">🔕</button>
+    <button class="hbtn test" id="testBtn">TEST</button>
     <button class="hbtn" id="importBtn" title="Importa CSV">⬆</button>
     <button class="hbtn" id="exportBtn" title="Esporta CSV">⬇</button>
-    <input type="file" id="importFileInput" accept=".csv,text/csv" style="display:none">
+    <input type="file" id="importFile" accept=".csv" style="display:none">
   </div>
 </div>
 
-<div class="period-scroll-wrap" id="periodScroll"></div>
+<!-- PERIOD BAR -->
+<div class="period-bar" id="periodBar"></div>
 
-<div class="tab-row">
+<!-- TABS -->
+<div class="tabs">
   <div class="tab active" data-tab="current">Attivi</div>
   <div class="tab" data-tab="history">Storico</div>
 </div>
 
-<div id="tab-current">
+<!-- CURRENT -->
+<div id="tabCurrent">
   <div class="main" id="mainContent"></div>
 </div>
 
-<div id="tab-history" style="display:none">
-  <div class="main" id="historyContent"></div>
+<!-- HISTORY -->
+<div id="tabHistory" style="display:none">
+  <div class="main" id="histContent"></div>
 </div>
 
-<button class="fab" id="addGoalBtn">
+<!-- FAB -->
+<button class="fab" id="fab">
   <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2v12M2 8h12" stroke="white" stroke-width="2.5" stroke-linecap="round"/></svg>
   Obiettivo
 </button>
 
-<!-- Sheet Periodo -->
-<div class="sheet-backdrop" id="sheetPeriod">
+<!-- SHEET: Periodo -->
+<div class="backdrop" id="sheetPeriod">
   <div class="sheet">
     <div class="sheet-handle"></div>
     <div class="sheet-title">Nuovo periodo</div>
     <div class="date-grid">
-      <div class="form-group">
-        <label class="form-label">Inizio</label>
-        <input type="date" class="form-input" id="periodStart">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Fine</label>
-        <input type="date" class="form-input" id="periodEnd">
-      </div>
+      <div class="form-group"><label class="form-label">Inizio</label><input type="date" class="form-input" id="pStart"></div>
+      <div class="form-group"><label class="form-label">Fine</label><input type="date" class="form-input" id="pEnd"></div>
     </div>
-    <div class="form-group">
-      <label class="form-label">Etichetta (opzionale)</label>
-      <input type="text" class="form-input" id="periodLabel" placeholder="es. Sprint W3-W4">
-    </div>
+    <div class="form-group"><label class="form-label">Etichetta (opzionale)</label><input type="text" class="form-input" id="pLabel" placeholder="es. Sprint W3-W4"></div>
     <div class="btn-row">
       <button class="btn-ghost" id="periodCancel">Annulla</button>
       <button class="btn-coral" id="periodSave">Crea periodo</button>
@@ -229,19 +208,13 @@ input[type="date"]::-webkit-calendar-picker-indicator { opacity:0.5; }
   </div>
 </div>
 
-<!-- Sheet Goal -->
-<div class="sheet-backdrop" id="sheetGoal">
+<!-- SHEET: Goal -->
+<div class="backdrop" id="sheetGoal">
   <div class="sheet">
     <div class="sheet-handle"></div>
     <div class="sheet-title" id="goalSheetTitle">Nuovo obiettivo</div>
-    <div class="form-group">
-      <label class="form-label">Titolo *</label>
-      <input type="text" class="form-input" id="goalTitle" placeholder="Cosa vuoi raggiungere?">
-    </div>
-    <div class="form-group">
-      <label class="form-label">Descrizione</label>
-      <textarea class="form-textarea" id="goalDesc" placeholder="Dettagli, metriche, criteri di successo..."></textarea>
-    </div>
+    <div class="form-group"><label class="form-label">Titolo *</label><input type="text" class="form-input" id="gTitle" placeholder="Cosa vuoi raggiungere?"></div>
+    <div class="form-group"><label class="form-label">Descrizione</label><textarea class="form-textarea" id="gDesc" placeholder="Dettagli, metriche, criteri di successo..."></textarea></div>
     <div class="btn-row">
       <button class="btn-ghost" id="goalCancel">Annulla</button>
       <button class="btn-coral" id="goalSave">Salva</button>
@@ -249,18 +222,14 @@ input[type="date"]::-webkit-calendar-picker-indicator { opacity:0.5; }
   </div>
 </div>
 
-<!-- Sheet Import -->
-<div class="sheet-backdrop" id="sheetImport">
+<!-- SHEET: Import -->
+<div class="backdrop" id="sheetImport">
   <div class="sheet">
     <div class="sheet-handle"></div>
     <div class="sheet-title">Importa CSV</div>
-    <p style="font-size:14px;color:var(--text-sub);line-height:1.6;margin-bottom:18px;font-weight:400;">
-      Importa un file CSV esportato da questa app. I dati già presenti non verranno duplicati.
-    </p>
+    <p style="font-size:14px;color:var(--text-sub);line-height:1.6;margin-bottom:18px;">Importa un file CSV esportato da questa app. I dati già presenti non verranno duplicati.</p>
     <div class="import-preview" id="importPreview"></div>
-    <button class="btn-coral" id="importPickFile" style="width:100%;margin-bottom:12px;height:50px;border-radius:12px;flex:none;">
-      📂 &nbsp;Scegli file CSV
-    </button>
+    <button class="btn-coral" style="width:100%;margin-bottom:12px;height:50px;border-radius:12px;flex:none;" id="importPickFile">📂 &nbsp;Scegli file CSV</button>
     <div class="btn-row">
       <button class="btn-ghost" id="importCancel">Annulla</button>
       <button class="btn-coral" id="importConfirm" style="display:none">Importa</button>
@@ -271,90 +240,110 @@ input[type="date"]::-webkit-calendar-picker-indicator { opacity:0.5; }
 <div class="toast" id="toast"></div>
 
 <script>
-let state = { periods:[], goals:[], activePeriodId:null, currentTab:'current', editingGoalId:null };
-function load() { const r=localStorage.getItem('bgapp_v3'); if(r){try{state={...state,...JSON.parse(r)};}catch(e){}} }
-function save() { localStorage.setItem('bgapp_v3',JSON.stringify(state)); }
-load();
+// ── STATE ─────────────────────────────────────────────────────────────
+const KEY = 'bgapp_v4';
+let S = { periods:[], goals:[], activePeriodId:null };
+try { const r = localStorage.getItem(KEY); if(r) S = {...S,...JSON.parse(r)}; } catch{}
+const save = () => localStorage.setItem(KEY, JSON.stringify(S));
 
-function uid() { return Date.now().toString(36)+Math.random().toString(36).slice(2,6); }
-function fmtDate(d) { if(!d)return''; const[y,m,dd]=d.split('-'); return`${dd}/${m}`; }
-function fmtDateFull(d) { if(!d)return''; const[y,m,dd]=d.split('-'); return`${dd}/${m}/${y}`; }
-function todayStr() { return new Date().toISOString().slice(0,10); }
-function addDays(d,n) { const dt=new Date(d); dt.setDate(dt.getDate()+n); return dt.toISOString().slice(0,10); }
-function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-function showToast(msg) { const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2400); }
+const uid = () => Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+const todayStr = () => new Date().toISOString().slice(0,10);
+const addDays = (d,n) => { const dt=new Date(d); dt.setDate(dt.getDate()+n); return dt.toISOString().slice(0,10); };
+const fmtDate = d => { if(!d)return''; const[,m,dd]=d.split('-'); return`${dd}/${m}`; };
+const fmtFull = d => { if(!d)return''; const[y,m,dd]=d.split('-'); return`${dd}/${m}/${y}`; };
+const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 
-function render() { renderPeriods(); renderGoals(); }
+let toastTimer;
+function toast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg; el.classList.add('show');
+  clearTimeout(toastTimer); toastTimer = setTimeout(()=>el.classList.remove('show'), 2400);
+}
 
-function renderPeriods() {
-  const wrap=document.getElementById('periodScroll');
-  wrap.innerHTML='';
-  state.periods.sort((a,b)=>a.start.localeCompare(b.start)).forEach(p=>{
-    const pill=document.createElement('div');
-    pill.className='period-pill'+(p.id===state.activePeriodId?' active':'');
-    pill.textContent=p.label||`${fmtDate(p.start)} - ${fmtDate(p.end)}`;
-    pill.onclick=()=>{ state.activePeriodId=p.id; save(); render(); };
-    wrap.appendChild(pill);
+// ── RENDER ────────────────────────────────────────────────────────────
+function render() { renderPeriodBar(); renderGoals(); }
+
+function renderPeriodBar() {
+  const bar = document.getElementById('periodBar');
+  bar.innerHTML = '';
+  [...S.periods].sort((a,b)=>a.start.localeCompare(b.start)).forEach(p => {
+    const pill = document.createElement('div');
+    pill.className = 'pill' + (p.id===S.activePeriodId?' active':'');
+    pill.textContent = p.label || `${fmtDate(p.start)} - ${fmtDate(p.end)}`;
+    pill.onclick = () => { S.activePeriodId=p.id; save(); render(); };
+    bar.appendChild(pill);
   });
-  const addBtn=document.createElement('button');
-  addBtn.className='period-add-pill';
-  addBtn.innerHTML='<span style="font-size:16px;line-height:1">+</span> Periodo';
-  addBtn.onclick=openPeriodSheet;
-  wrap.appendChild(addBtn);
+  const add = document.createElement('button');
+  add.className='period-add-pill';
+  add.innerHTML='<span style="font-size:16px">+</span> Periodo';
+  add.onclick = openPeriodSheet;
+  bar.appendChild(add);
 }
 
 function renderGoals() {
-  const main=document.getElementById('mainContent');
-  main.innerHTML='';
-  if(!state.activePeriodId) {
-    document.getElementById('addGoalBtn').style.display='none';
-    main.appendChild(buildEmptyPeriod()); return;
+  const main = document.getElementById('mainContent');
+  main.innerHTML = '';
+  const fab = document.getElementById('fab');
+
+  if(!S.activePeriodId) {
+    fab.style.display='none';
+    main.innerHTML=`<div class="empty"><div class="empty-ico">🗓️</div><div class="empty-title">Nessun periodo attivo</div><div class="empty-sub">Crea il tuo primo periodo bisettimanale.</div></div>`;
+    return;
   }
-  document.getElementById('addGoalBtn').style.display='flex';
-  const period=state.periods.find(p=>p.id===state.activePeriodId);
-  const goals=state.goals.filter(g=>g.periodId===state.activePeriodId);
-  const done=goals.filter(g=>g.done).length, total=goals.length;
-  const pct=total?Math.round((done/total)*100):0;
-  if(total>0) {
-    const stats=document.createElement('div');
-    stats.className='stats-strip';
-    stats.innerHTML=`<div class="stat-tile"><div class="stat-num">${total}</div><div class="stat-lbl">Totale</div></div><div class="stat-tile"><div class="stat-num green">${done}</div><div class="stat-lbl">Fatti</div></div><div class="stat-tile"><div class="stat-num coral">${pct}%</div><div class="stat-lbl">Score</div></div>`;
-    main.appendChild(stats);
-    const prog=document.createElement('div'); prog.className='progress-section';
-    const plabel=period?(period.label||`${fmtDateFull(period.start)} - ${fmtDateFull(period.end)}`): '';
-    prog.innerHTML=`<div class="progress-header"><span class="progress-label">${esc(plabel)}</span><span class="progress-pct">${pct}% completato</span></div><div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>`;
-    main.appendChild(prog);
+  fab.style.display='flex';
+
+  const period = S.periods.find(p=>p.id===S.activePeriodId);
+  const goals = S.goals.filter(g=>g.periodId===S.activePeriodId);
+  const done = goals.filter(g=>g.done).length, total = goals.length;
+  const pct = total ? Math.round((done/total)*100) : 0;
+
+  if(total > 0) {
+    const plabel = period ? (period.label||`${fmtFull(period.start)} - ${fmtFull(period.end)}`) : '';
+    main.innerHTML = `
+      <div class="stats">
+        <div class="stat"><div class="stat-n">${total}</div><div class="stat-l">Totale</div></div>
+        <div class="stat"><div class="stat-n" style="color:var(--green)">${done}</div><div class="stat-l">Fatti</div></div>
+        <div class="stat"><div class="stat-n" style="color:var(--coral)">${pct}%</div><div class="stat-l">Score</div></div>
+      </div>
+      <div class="prog-section">
+        <div class="prog-hdr"><span class="prog-label">${esc(plabel)}</span><span class="prog-pct">${pct}% completato</span></div>
+        <div class="prog-track"><div class="prog-fill" style="width:${pct}%"></div></div>
+      </div>`;
   }
-  if(goals.length===0) { main.appendChild(buildEmptyGoals()); return; }
-  const shdr=document.createElement('div'); shdr.className='section-hdr';
-  shdr.innerHTML=`<span class="section-title">Obiettivi</span><span class="section-sub">${done} di ${total} completati</span>`;
+
+  if(!goals.length) {
+    main.innerHTML += `<div class="empty"><div class="empty-ico">📋</div><div class="empty-title">Nessun obiettivo</div><div class="empty-sub">Tocca il pulsante rosso per aggiungere.</div></div>`;
+    return;
+  }
+
+  const shdr = document.createElement('div');
+  shdr.className = 'sec-hdr';
+  shdr.innerHTML = `<span class="sec-title">Obiettivi</span><span class="sec-sub">${done} di ${total} completati</span>`;
   main.appendChild(shdr);
-  goals.forEach(g=>{ const card=buildGoalCard(g); main.appendChild(card); });
-  goals.forEach(g=>attachPanelEvents(g.id));
+
+  const list = document.createElement('div');
+  list.id = 'goalList';
+  goals.forEach(g => list.appendChild(buildCard(g)));
+  main.appendChild(list);
+
+  initDragDrop();
 }
 
-function buildEmptyPeriod() {
-  const e=document.createElement('div'); e.className='empty';
-  e.innerHTML=`<div class="empty-icon">🗓️</div><div class="empty-title">Nessun periodo attivo</div><div class="empty-sub">Crea il tuo primo periodo bisettimanale<br>e inizia a tracciare i tuoi obiettivi.</div>`;
-  return e;
-}
-function buildEmptyGoals() {
-  const e=document.createElement('div'); e.className='empty';
-  e.innerHTML=`<div class="empty-icon">📋</div><div class="empty-title">Nessun obiettivo</div><div class="empty-sub">Tocca il pulsante rosso in basso<br>per aggiungere il tuo primo obiettivo.</div>`;
-  return e;
-}
+// ── GOAL CARD ─────────────────────────────────────────────────────────
+function buildCard(g) {
+  const card = document.createElement('div');
+  card.className = 'goal-card' + (g.done?' done':'');
+  card.dataset.id = g.id;
+  card.draggable = true;
+  const attCount = (g.attachments||[]).length;
 
-function buildGoalCard(g) {
-  const card=document.createElement('div');
-  card.className='goal-card'+(g.done?' done':'');
-  card.dataset.goalId=g.id;
-  const attCount=(g.attachments||[]).length;
-  card.innerHTML=`
+  card.innerHTML = `
     <div class="goal-body">
-      <div class="check-wrap">
-        <div class="check-circle ${g.done?'checked':''}" data-toggle="${g.id}">
-          <svg width="12" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4.5L4.2 7.8L11 1" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
+      <div class="drag-handle" title="Trascina per riordinare">
+        <span></span><span></span><span></span>
+      </div>
+      <div class="check-circle ${g.done?'checked':''}" data-toggle="${g.id}">
+        ${g.done?`<svg width="12" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4.5L4.2 7.8L11 1" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>`:''}
       </div>
       <div class="goal-content">
         <div class="goal-title">${esc(g.title)}</div>
@@ -362,252 +351,318 @@ function buildGoalCard(g) {
         <div class="goal-footer">
           ${attCount>0?`<span class="att-pill">📎 ${attCount} allegat${attCount===1?'o':'i'}</span>`:'<span></span>'}
           <div class="goal-btns">
-            <button class="g-btn" data-att="${g.id}" title="Allegati">📎</button>
-            <button class="g-btn" data-edit="${g.id}" title="Modifica">✏️</button>
-            <button class="g-btn del" data-del="${g.id}" title="Elimina">🗑</button>
+            <button class="g-btn" data-att="${g.id}">📎</button>
+            <button class="g-btn" data-edit="${g.id}">✏️</button>
+            <button class="g-btn" data-del="${g.id}">🗑</button>
           </div>
         </div>
       </div>
     </div>
-    <div class="att-panel" id="attpanel-${g.id}">${buildAttHTML(g)}</div>
+    <div class="att-panel" id="atp-${g.id}">${buildAttHTML(g)}</div>
   `;
-  card.querySelector(`[data-toggle="${g.id}"]`).addEventListener('click',e=>{e.stopPropagation();toggleGoal(g.id);});
-  card.querySelector(`[data-att="${g.id}"]`).addEventListener('click',e=>{e.stopPropagation();document.getElementById(`attpanel-${g.id}`).classList.toggle('open');});
-  card.querySelector(`[data-edit="${g.id}"]`).addEventListener('click',e=>{e.stopPropagation();openEditGoal(g.id);});
-  card.querySelector(`[data-del="${g.id}"]`).addEventListener('click',e=>{e.stopPropagation();deleteGoal(g.id);});
+
+  card.querySelector(`[data-toggle]`).onclick = e => { e.stopPropagation(); toggleGoal(g.id); };
+  card.querySelector(`[data-att]`).onclick = e => { e.stopPropagation(); document.getElementById(`atp-${g.id}`).classList.toggle('open'); };
+  card.querySelector(`[data-edit]`).onclick = e => { e.stopPropagation(); openEditGoal(g.id); };
+  card.querySelector(`[data-del]`).onclick = e => { e.stopPropagation(); deleteGoal(g.id); };
+
+  // attach attachment events
+  setTimeout(() => attachAttEvents(g.id), 0);
+
   return card;
 }
 
+// ── DRAG & DROP ───────────────────────────────────────────────────────
+let dragSrc = null;
+
+function initDragDrop() {
+  const list = document.getElementById('goalList');
+  if(!list) return;
+
+  // Desktop drag events
+  list.querySelectorAll('.goal-card').forEach(card => {
+    card.addEventListener('dragstart', e => {
+      dragSrc = card;
+      card.classList.add('dragging');
+      e.dataTransfer.effectAllowed = 'move';
+    });
+    card.addEventListener('dragend', () => {
+      card.classList.remove('dragging');
+      list.querySelectorAll('.goal-card').forEach(c=>c.classList.remove('drag-over'));
+      persistOrder();
+    });
+    card.addEventListener('dragover', e => {
+      e.preventDefault();
+      if(card === dragSrc) return;
+      list.querySelectorAll('.goal-card').forEach(c=>c.classList.remove('drag-over'));
+      card.classList.add('drag-over');
+      const rect = card.getBoundingClientRect();
+      const mid = rect.top + rect.height/2;
+      if(e.clientY < mid) list.insertBefore(dragSrc, card);
+      else list.insertBefore(dragSrc, card.nextSibling);
+    });
+    card.addEventListener('dragleave', () => card.classList.remove('drag-over'));
+    card.addEventListener('drop', e => { e.preventDefault(); card.classList.remove('drag-over'); });
+
+    // Touch drag — handle only
+    const handle = card.querySelector('.drag-handle');
+    if(handle) initTouchDrag(handle, card, list);
+  });
+}
+
+function initTouchDrag(handle, card, list) {
+  let startY, startX, clone, origIdx;
+
+  handle.addEventListener('touchstart', e => {
+    const touch = e.touches[0];
+    startY = touch.clientY; startX = touch.clientX;
+    origIdx = [...list.children].indexOf(card);
+
+    // Create floating clone
+    const rect = card.getBoundingClientRect();
+    clone = card.cloneNode(true);
+    clone.style.cssText = `position:fixed;left:${rect.left}px;top:${rect.top}px;width:${rect.width}px;z-index:999;opacity:.85;pointer-events:none;box-shadow:0 8px 24px rgba(0,0,0,.18);transition:none;border-radius:16px;`;
+    document.body.appendChild(clone);
+    card.style.opacity = '0.3';
+    e.preventDefault();
+  }, {passive:false});
+
+  handle.addEventListener('touchmove', e => {
+    if(!clone) return;
+    const touch = e.touches[0];
+    const dy = touch.clientY - startY;
+    const rect = card.getBoundingClientRect();
+    clone.style.top = (rect.top + dy) + 'px';
+
+    // Find target card
+    const cards = [...list.querySelectorAll('.goal-card:not([style*="opacity: 0.3"])')];
+    list.querySelectorAll('.goal-card').forEach(c=>c.classList.remove('drag-over'));
+    for(const c of cards) {
+      const cr = c.getBoundingClientRect();
+      if(touch.clientY >= cr.top && touch.clientY <= cr.bottom) {
+        c.classList.add('drag-over');
+        const mid = cr.top + cr.height/2;
+        if(touch.clientY < mid) list.insertBefore(card, c);
+        else list.insertBefore(card, c.nextSibling);
+        break;
+      }
+    }
+    e.preventDefault();
+  }, {passive:false});
+
+  handle.addEventListener('touchend', () => {
+    if(clone) { clone.remove(); clone=null; }
+    card.style.opacity = '';
+    list.querySelectorAll('.goal-card').forEach(c=>c.classList.remove('drag-over'));
+    persistOrder();
+  });
+}
+
+function persistOrder() {
+  const list = document.getElementById('goalList');
+  if(!list) return;
+  const ids = [...list.querySelectorAll('.goal-card')].map(c=>c.dataset.id);
+  // Reorder goals: keep other periods' goals, reorder active ones
+  const others = S.goals.filter(g=>g.periodId!==S.activePeriodId);
+  const reordered = ids.map(id=>S.goals.find(g=>g.id===id)).filter(Boolean);
+  S.goals = [...others, ...reordered];
+  save();
+  // update stats quietly
+  const goals = S.goals.filter(g=>g.periodId===S.activePeriodId);
+  const done = goals.filter(g=>g.done).length, total=goals.length;
+  const pct = total ? Math.round((done/total)*100):0;
+  const fill = document.querySelector('.prog-fill');
+  const pctEl = document.querySelector('.prog-pct');
+  if(fill) fill.style.width=pct+'%';
+  if(pctEl) pctEl.textContent=pct+'% completato';
+}
+
+// ── ATTACHMENTS ───────────────────────────────────────────────────────
 function buildAttHTML(g) {
-  const atts=g.attachments||[];
-  const list=atts.map((a,i)=>{
-    const ico=a.type==='link'?'🔗':'📝';
-    const lbl=a.type==='link'?`<a class="att-txt att-lnk" href="${esc(a.value)}" target="_blank" rel="noopener">${esc(a.label||a.value)}</a>`:`<span class="att-txt">${esc(a.label||a.value)}</span>`;
-    return `<div class="att-row"><span class="att-ico">${ico}</span>${lbl}<button class="att-remove" data-att-del="${g.id}-${i}">✕</button></div>`;
-  }).join('');
+  const atts = g.attachments||[];
+  const list = atts.map((a,i)=>`
+    <div class="att-row">
+      <span style="font-size:14px">${a.type==='link'?'🔗':'📝'}</span>
+      ${a.type==='link'?`<a class="att-txt att-lnk" href="${esc(a.value)}" target="_blank" rel="noopener">${esc(a.label||a.value)}</a>`:`<span class="att-txt">${esc(a.label||a.value)}</span>`}
+      <button style="background:none;border:none;color:var(--text-hint);font-size:14px;cursor:pointer;" data-att-del="${g.id}-${i}">✕</button>
+    </div>`).join('');
   return `
     <div class="att-panel-title">Allegati & Link</div>
     <div class="att-list" id="attlist-${g.id}">${list}</div>
     <div class="add-att-form">
-      <div class="att-type-toggle">
+      <div style="display:flex;gap:4px">
         <button class="att-type-btn sel" data-att-type="${g.id}" data-type="link">🔗</button>
         <button class="att-type-btn" data-att-type="${g.id}" data-type="note">📝</button>
       </div>
       <input class="att-field" id="attinput-${g.id}" placeholder="URL o nota...">
       <button class="att-ok" data-att-add="${g.id}">+</button>
-    </div>
-  `;
+    </div>`;
 }
 
-function attachPanelEvents(goalId) {
-  document.querySelectorAll(`[data-att-type="${goalId}"]`).forEach(btn=>{
-    btn.addEventListener('click',()=>{
-      document.querySelectorAll(`[data-att-type="${goalId}"]`).forEach(b=>b.classList.remove('sel'));
-      btn.classList.add('sel');
-    });
+function attachAttEvents(gid) {
+  document.querySelectorAll(`[data-att-type="${gid}"]`).forEach(btn=>{
+    btn.onclick=()=>{ document.querySelectorAll(`[data-att-type="${gid}"]`).forEach(b=>b.classList.remove('sel')); btn.classList.add('sel'); };
   });
-  const addBtn=document.querySelector(`[data-att-add="${goalId}"]`);
-  if(addBtn) {
-    addBtn.addEventListener('click',()=>{
-      const input=document.getElementById(`attinput-${goalId}`);
-      const val=input.value.trim(); if(!val)return;
-      const typeBtn=document.querySelector(`[data-att-type="${goalId}"].sel`);
-      const type=typeBtn?typeBtn.dataset.type:'note';
-      const g=state.goals.find(x=>x.id===goalId); if(!g)return;
-      if(!g.attachments)g.attachments=[];
-      const isLink=type==='link'||val.startsWith('http');
-      g.attachments.push({type:isLink?'link':'note',label:val,value:val});
-      input.value=''; save(); refreshAttPanel(goalId);
-    });
-  }
-  document.querySelectorAll(`[data-att-del^="${goalId}-"]`).forEach(btn=>{
-    btn.addEventListener('click',()=>{
+  const addBtn = document.querySelector(`[data-att-add="${gid}"]`);
+  if(addBtn) addBtn.onclick=()=>{
+    const input=document.getElementById(`attinput-${gid}`);
+    const val=input.value.trim(); if(!val)return;
+    const typeBtn=document.querySelector(`[data-att-type="${gid}"].sel`);
+    const type=typeBtn?typeBtn.dataset.type:'note';
+    const g=S.goals.find(x=>x.id===gid); if(!g)return;
+    if(!g.attachments)g.attachments=[];
+    const isLink=type==='link'||val.startsWith('http');
+    g.attachments.push({type:isLink?'link':'note',label:val,value:val});
+    input.value=''; save(); refreshAtt(gid);
+  };
+  document.querySelectorAll(`[data-att-del^="${gid}-"]`).forEach(btn=>{
+    btn.onclick=()=>{
       const idx=parseInt(btn.dataset.attDel.split('-')[1]);
-      const g=state.goals.find(x=>x.id===goalId);
-      if(g&&g.attachments){g.attachments.splice(idx,1);save();refreshAttPanel(goalId);}
-    });
+      const g=S.goals.find(x=>x.id===gid);
+      if(g&&g.attachments){g.attachments.splice(idx,1);save();refreshAtt(gid);}
+    };
   });
 }
 
-function refreshAttPanel(goalId) {
-  const panel=document.getElementById(`attpanel-${goalId}`); if(!panel)return;
+function refreshAtt(gid) {
+  const panel=document.getElementById(`atp-${gid}`); if(!panel)return;
   const wasOpen=panel.classList.contains('open');
-  const g=state.goals.find(x=>x.id===goalId); if(!g)return;
+  const g=S.goals.find(x=>x.id===gid); if(!g)return;
   panel.innerHTML=buildAttHTML(g);
   if(wasOpen)panel.classList.add('open');
-  attachPanelEvents(goalId);
-  const card=document.querySelector(`[data-goal-id="${goalId}"]`);
-  if(card){
-    const cnt=(g.attachments||[]).length;
-    const footer=card.querySelector('.goal-footer');
-    if(footer){
-      const badge=footer.querySelector('.att-pill');
-      if(cnt>0){
-        const txt=`📎 ${cnt} allegat${cnt===1?'o':'i'}`;
-        if(badge)badge.textContent=txt;
-        else{const s=document.createElement('span');s.className='att-pill';s.textContent=txt;footer.insertBefore(s,footer.firstChild);}
-      } else if(badge){badge.replaceWith(document.createElement('span'));}
-    }
-  }
+  attachAttEvents(gid);
 }
 
-function renderHistory() {
-  const hist=document.getElementById('historyContent'); if(!hist)return;
-  hist.innerHTML='';
-  const today=todayStr();
-  const pastPeriods=state.periods.filter(p=>p.end<today);
-  if(!pastPeriods.length){hist.innerHTML=`<div class="empty"><div class="empty-icon">📚</div><div class="empty-title">Nessuno storico</div><div class="empty-sub">I periodi conclusi appariranno qui.</div></div>`;return;}
-  [...pastPeriods].sort((a,b)=>b.start.localeCompare(a.start)).forEach(p=>{
-    const goals=state.goals.filter(g=>g.periodId===p.id);
-    const done=goals.filter(g=>g.done).length, total=goals.length;
-    const pct=total?Math.round((done/total)*100):0;
-    const label=p.label||`${fmtDateFull(p.start)} - ${fmtDateFull(p.end)}`;
-    const block=document.createElement('div'); block.className='hist-period';
-    const goalsHTML=goals.length?goals.map(g=>`<div class="hist-goal-row ${g.done?'done':''}"><span style="font-size:14px">${g.done?'✅':'⬜'}</span>${esc(g.title)}</div>`).join(''):`<div style="padding:10px 0;font-size:13px;color:var(--text-hint)">Nessun obiettivo.</div>`;
-    block.innerHTML=`<div class="hist-period-header"><div class="hist-period-name">${esc(label)}</div><div class="hist-progress-row"><div class="hist-track"><div class="hist-fill" style="width:${pct}%"></div></div><span class="hist-pct">${done}/${total} · ${pct}%</span></div></div><div class="hist-goals">${goalsHTML}</div>`;
-    hist.appendChild(block);
-  });
-}
-
+// ── ACTIONS ───────────────────────────────────────────────────────────
 function toggleGoal(id) {
-  const g=state.goals.find(x=>x.id===id); if(!g)return;
+  const g=S.goals.find(x=>x.id===id); if(!g)return;
   g.done=!g.done; save(); render();
-  state.goals.filter(g2=>g2.periodId===state.activePeriodId).forEach(g2=>attachPanelEvents(g2.id));
 }
-
 function deleteGoal(id) {
   if(!confirm('Eliminare questo obiettivo?'))return;
-  state.goals=state.goals.filter(x=>x.id!==id); save(); render();
-  state.goals.filter(g=>g.periodId===state.activePeriodId).forEach(g=>attachPanelEvents(g.id));
+  S.goals=S.goals.filter(x=>x.id!==id); save(); render();
 }
-
 function openEditGoal(id) {
-  const g=state.goals.find(x=>x.id===id); if(!g)return;
-  state.editingGoalId=id;
+  const g=S.goals.find(x=>x.id===id); if(!g)return;
+  editingId=id;
   document.getElementById('goalSheetTitle').textContent='Modifica obiettivo';
-  document.getElementById('goalTitle').value=g.title;
-  document.getElementById('goalDesc').value=g.desc||'';
+  document.getElementById('gTitle').value=g.title;
+  document.getElementById('gDesc').value=g.desc||'';
   document.getElementById('sheetGoal').classList.add('open');
 }
 
+// ── PERIOD SHEET ──────────────────────────────────────────────────────
 function openPeriodSheet() {
-  document.getElementById('periodStart').value=todayStr();
-  document.getElementById('periodEnd').value=addDays(todayStr(),13);
-  document.getElementById('periodLabel').value='';
+  document.getElementById('pStart').value=todayStr();
+  document.getElementById('pEnd').value=addDays(todayStr(),13);
+  document.getElementById('pLabel').value='';
   document.getElementById('sheetPeriod').classList.add('open');
 }
-
-document.getElementById('periodCancel').addEventListener('click',()=>document.getElementById('sheetPeriod').classList.remove('open'));
-document.getElementById('periodSave').addEventListener('click',()=>{
-  const start=document.getElementById('periodStart').value;
-  const end=document.getElementById('periodEnd').value;
-  const label=document.getElementById('periodLabel').value.trim();
-  if(!start||!end){showToast('Inserisci le date');return;}
-  if(end<start){showToast('La data fine deve essere dopo l\'inizio');return;}
+document.getElementById('periodCancel').onclick=()=>document.getElementById('sheetPeriod').classList.remove('open');
+document.getElementById('periodSave').onclick=()=>{
+  const start=document.getElementById('pStart').value, end=document.getElementById('pEnd').value;
+  const label=document.getElementById('pLabel').value.trim();
+  if(!start||!end){toast('Inserisci le date');return;}
+  if(end<start){toast("La data fine deve essere dopo l'inizio");return;}
   const p={id:uid(),start,end,label};
-  state.periods.push(p); state.activePeriodId=p.id; save();
+  S.periods.push(p); S.activePeriodId=p.id; save();
   document.getElementById('sheetPeriod').classList.remove('open');
-  render(); showToast('Periodo creato ✓');
-});
+  render(); toast('Periodo creato ✓');
+};
 
-document.getElementById('addGoalBtn').addEventListener('click',()=>{
-  if(!state.activePeriodId){showToast('Seleziona prima un periodo');return;}
-  state.editingGoalId=null;
+// ── GOAL SHEET ────────────────────────────────────────────────────────
+let editingId = null;
+document.getElementById('fab').onclick=()=>{
+  if(!S.activePeriodId){toast('Seleziona prima un periodo');return;}
+  editingId=null;
   document.getElementById('goalSheetTitle').textContent='Nuovo obiettivo';
-  document.getElementById('goalTitle').value='';
-  document.getElementById('goalDesc').value='';
+  document.getElementById('gTitle').value='';
+  document.getElementById('gDesc').value='';
   document.getElementById('sheetGoal').classList.add('open');
-  setTimeout(()=>document.getElementById('goalTitle').focus(),320);
-});
-
-document.getElementById('goalCancel').addEventListener('click',()=>document.getElementById('sheetGoal').classList.remove('open'));
-document.getElementById('goalSave').addEventListener('click',()=>{
-  const title=document.getElementById('goalTitle').value.trim();
-  if(!title){showToast('Inserisci un titolo');return;}
-  const desc=document.getElementById('goalDesc').value.trim();
-  if(state.editingGoalId){
-    const g=state.goals.find(x=>x.id===state.editingGoalId);
-    if(g){g.title=title;g.desc=desc;} showToast('Obiettivo aggiornato ✓');
+  setTimeout(()=>document.getElementById('gTitle').focus(),320);
+};
+document.getElementById('goalCancel').onclick=()=>document.getElementById('sheetGoal').classList.remove('open');
+document.getElementById('goalSave').onclick=()=>{
+  const title=document.getElementById('gTitle').value.trim();
+  if(!title){toast('Inserisci un titolo');return;}
+  const desc=document.getElementById('gDesc').value.trim();
+  if(editingId){
+    const g=S.goals.find(x=>x.id===editingId);
+    if(g){g.title=title;g.desc=desc;} toast('Obiettivo aggiornato ✓');
   } else {
-    state.goals.push({id:uid(),periodId:state.activePeriodId,title,desc,done:false,attachments:[]});
-    showToast('Obiettivo aggiunto ✓');
+    S.goals.push({id:uid(),periodId:S.activePeriodId,title,desc,done:false,attachments:[]});
+    toast('Obiettivo aggiunto ✓');
   }
-  save(); document.getElementById('sheetGoal').classList.remove('open');
-  render(); state.goals.filter(g=>g.periodId===state.activePeriodId).forEach(g=>attachPanelEvents(g.id));
-});
+  save(); document.getElementById('sheetGoal').classList.remove('open'); render();
+};
 
-['sheetPeriod','sheetGoal','sheetImport'].forEach(id=>{
-  document.getElementById(id).addEventListener('click',e=>{if(e.target.id===id)document.getElementById(id).classList.remove('open');});
-});
-
+// ── TABS ──────────────────────────────────────────────────────────────
 document.querySelectorAll('.tab').forEach(tab=>{
-  tab.addEventListener('click',()=>{
-    const t=tab.dataset.tab; state.currentTab=t;
-    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
-    tab.classList.add('active');
-    document.getElementById('tab-current').style.display=t==='current'?'':'none';
-    document.getElementById('tab-history').style.display=t==='history'?'':'none';
-    document.getElementById('addGoalBtn').style.display=t==='history'?'none':(state.activePeriodId?'flex':'none');
-    if(t==='history')renderHistory();
-  });
+  tab.onclick=()=>{
+    const t=tab.dataset.tab;
+    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active')); tab.classList.add('active');
+    document.getElementById('tabCurrent').style.display=t==='current'?'':'none';
+    document.getElementById('tabHistory').style.display=t==='history'?'':'none';
+    document.getElementById('fab').style.display=t==='history'?'none':(S.activePeriodId?'flex':'none');
+    if(t==='history') renderHistory();
+  };
 });
 
-document.getElementById('exportBtn').addEventListener('click',()=>{
+function renderHistory() {
+  const hist=document.getElementById('histContent'); hist.innerHTML='';
+  const today=todayStr();
+  const past=[...S.periods].filter(p=>p.end<today).sort((a,b)=>b.start.localeCompare(a.start));
+  if(!past.length){hist.innerHTML=`<div class="empty"><div class="empty-ico">📚</div><div class="empty-title">Nessuno storico</div><div class="empty-sub">I periodi conclusi appariranno qui.</div></div>`;return;}
+  past.forEach(p=>{
+    const pg=S.goals.filter(g=>g.periodId===p.id);
+    const d=pg.filter(g=>g.done).length,t=pg.length,pc=t?Math.round((d/t)*100):0;
+    const lbl=p.label||`${fmtFull(p.start)} - ${fmtFull(p.end)}`;
+    const card=document.createElement('div'); card.className='hist-card';
+    card.innerHTML=`
+      <div class="hist-hdr">
+        <div class="hist-name">${esc(lbl)}</div>
+        <div class="hist-prog"><div class="hist-track"><div class="hist-fill" style="width:${pc}%"></div></div><span class="hist-pct">${d}/${t} · ${pc}%</span></div>
+      </div>
+      <div class="hist-goals">${pg.length?pg.map(g=>`<div class="hist-row ${g.done?'done':''}"><span style="font-size:14px">${g.done?'✅':'⬜'}</span>${esc(g.title)}</div>`).join(''):'<div style="padding:10px 0;font-size:13px;color:var(--text-hint)">Nessun obiettivo.</div>'}</div>`;
+    hist.appendChild(card);
+  });
+}
+
+// ── EXPORT ────────────────────────────────────────────────────────────
+document.getElementById('exportBtn').onclick=()=>{
   const rows=[['Periodo','Inizio','Fine','Titolo','Descrizione','Completato','Allegati']];
-  state.periods.sort((a,b)=>a.start.localeCompare(b.start)).forEach(p=>{
-    const goals=state.goals.filter(g=>g.periodId===p.id);
-    const label=p.label||`${fmtDateFull(p.start)} - ${fmtDateFull(p.end)}`;
-    goals.forEach(g=>{
+  [...S.periods].sort((a,b)=>a.start.localeCompare(b.start)).forEach(p=>{
+    const pg=S.goals.filter(g=>g.periodId===p.id);
+    const lbl=p.label||`${fmtFull(p.start)} - ${fmtFull(p.end)}`;
+    pg.forEach(g=>{
       const atts=(g.attachments||[]).map(a=>`${a.type}:${a.value}`).join(' | ');
-      rows.push([label,p.start,p.end,g.title,g.desc||'',g.done?'Sì':'No',atts]);
+      rows.push([lbl,p.start,p.end,g.title,g.desc||'',g.done?'Sì':'No',atts]);
     });
   });
   const csv=rows.map(r=>r.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n');
   const blob=new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'});
   const url=URL.createObjectURL(blob);
   const a=document.createElement('a'); a.href=url; a.download=`goals-${todayStr()}.csv`; a.click();
-  URL.revokeObjectURL(url); showToast('CSV esportato ✓');
-});
+  URL.revokeObjectURL(url); toast('CSV esportato ✓');
+};
 
+// ── IMPORT ────────────────────────────────────────────────────────────
 let pendingImport=null;
-document.getElementById('notifBtn').addEventListener('click', enableNotifications);
-document.getElementById('testNotifBtn').addEventListener('click', async () => {
-  const granted = await requestNotifPermission();
-  if (!granted) { showToast('Autorizza prima le notifiche'); return; }
-  const today = todayStr();
-  const current = state.periods.find(p => p.start <= today && p.end >= today);
-  const period = current || state.periods[state.periods.length - 1];
-  if (!period) { showToast('Nessun periodo disponibile per il test'); return; }
-  const label = period.label || (fmtDateFull(period.start) + ' - ' + fmtDateFull(period.end));
-  const goals = state.goals.filter(g => g.periodId === period.id);
-  const done = goals.filter(g => g.done).length;
-  const total = goals.length;
-  const pct = total ? Math.round((done/total)*100) : 0;
-  const iconSvg = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='40' fill='%23FF385C'/%3E%3Ccircle cx='96' cy='96' r='52' stroke='white' stroke-width='10' fill='none'/%3E%3Ccircle cx='96' cy='96' r='22' fill='white'/%3E%3C/svg%3E";
-  new Notification('\u23f0 TEST \u00b7 Periodo in scadenza oggi!', {
-    body: '"' + label + '" \u00b7 ' + done + '/' + total + ' obiettivi completati (' + pct + '%)',
-    icon: iconSvg,
-    tag: 'test-notif-' + Date.now(),
-    requireInteraction: false
-  });
-  showToast('Notifica test inviata ✓');
-  updateNotifBtn();
-});
-document.getElementById('importBtn').addEventListener('click',()=>{
+document.getElementById('importBtn').onclick=()=>{
   pendingImport=null;
   document.getElementById('importPreview').style.display='none';
   document.getElementById('importPreview').innerHTML='';
   document.getElementById('importConfirm').style.display='none';
   document.getElementById('sheetImport').classList.add('open');
-});
-document.getElementById('importCancel').addEventListener('click',()=>document.getElementById('sheetImport').classList.remove('open'));
-document.getElementById('importPickFile').addEventListener('click',()=>document.getElementById('importFileInput').click());
-document.getElementById('importFileInput').addEventListener('change',e=>{
+};
+document.getElementById('importCancel').onclick=()=>document.getElementById('sheetImport').classList.remove('open');
+document.getElementById('importPickFile').onclick=()=>document.getElementById('importFile').click();
+document.getElementById('importFile').onchange=e=>{
   const file=e.target.files[0]; if(!file)return;
   const reader=new FileReader();
-  reader.onload=ev=>parseCSVImport(ev.target.result.replace(/^\uFEFF/,''));
+  reader.onload=ev=>parseCSV(ev.target.result.replace(/^\uFEFF/,''));
   reader.readAsText(file,'utf-8'); e.target.value='';
-});
+};
 
 function parseCSVLine(line) {
   const result=[]; let cur=''; let inQ=false;
@@ -620,172 +675,122 @@ function parseCSVLine(line) {
   result.push(cur); return result;
 }
 
-function parseCSVImport(text) {
+function parseCSV(text) {
   const lines=text.split(/\r?\n/).filter(l=>l.trim());
-  if(lines.length<2){showToast('File CSV non valido');return;}
+  if(lines.length<2){toast('File CSV non valido');return;}
   const rows=lines.map(parseCSVLine);
-  const header=rows[0].map(h=>h.toLowerCase().trim());
-  const iLabel=header.indexOf('periodo'),iStart=header.indexOf('inizio'),iEnd=header.indexOf('fine');
-  const iTitle=header.indexOf('titolo'),iDesc=header.indexOf('descrizione');
-  const iDone=header.indexOf('completato'),iAtt=header.indexOf('allegati');
-  if(iTitle===-1||iStart===-1){showToast('Intestazioni CSV non riconosciute');return;}
-  const newPeriods=[],newGoals=[],periodMap={};
-  state.periods.forEach(p=>{periodMap[p.start+'_'+p.end]=p.id;});
+  const hdr=rows[0].map(h=>h.toLowerCase().trim());
+  const iL=hdr.indexOf('periodo'),iS=hdr.indexOf('inizio'),iE=hdr.indexOf('fine');
+  const iT=hdr.indexOf('titolo'),iD=hdr.indexOf('descrizione');
+  const iDone=hdr.indexOf('completato'),iA=hdr.indexOf('allegati');
+  if(iT===-1||iS===-1){toast('Intestazioni CSV non riconosciute');return;}
+  const newP=[],newG=[],pm={};
+  S.periods.forEach(p=>{pm[p.start+'_'+p.end]=p.id;});
   rows.slice(1).forEach(row=>{
-    const start=row[iStart]||'',end=row[iEnd]||'',label=iLabel!==-1?row[iLabel]:'';
-    const title=row[iTitle]||'',desc=iDesc!==-1?row[iDesc]:'';
+    const start=row[iS]||'',end=row[iE]||'',label=iL!==-1?row[iL]:'';
+    const title=row[iT]||'',desc=iD!==-1?row[iD]:'';
     const done=iDone!==-1?(row[iDone].toLowerCase()==='sì'||row[iDone].toLowerCase()==='si'||row[iDone]==='1'):false;
-    const attRaw=iAtt!==-1?row[iAtt]:'';
+    const attRaw=iA!==-1?row[iA]:'';
     if(!title||!start)return;
     const key=start+'_'+end;
-    if(!periodMap[key]){const pid=uid();periodMap[key]=pid;newPeriods.push({id:pid,start,end,label});}
-    const periodId=periodMap[key];
-    if(state.goals.some(g=>g.periodId===periodId&&g.title===title))return;
-    const attachments=[];
-    if(attRaw){attRaw.split('|').forEach(a=>{const tr=a.trim();if(!tr)return;const ci=tr.indexOf(':');if(ci>0){const type=tr.slice(0,ci).trim(),value=tr.slice(ci+1).trim();attachments.push({type,label:value,value});}else{attachments.push({type:'note',label:tr,value:tr});}});}
-    newGoals.push({id:uid(),periodId,title,desc,done,attachments});
+    if(!pm[key]){const pid=uid();pm[key]=pid;newP.push({id:pid,start,end,label});}
+    const periodId=pm[key];
+    if(S.goals.some(g=>g.periodId===periodId&&g.title===title))return;
+    const atts=[];
+    if(attRaw)attRaw.split('|').forEach(a=>{const tr=a.trim();if(!tr)return;const ci=tr.indexOf(':');if(ci>0){const type=tr.slice(0,ci).trim(),value=tr.slice(ci+1).trim();atts.push({type,label:value,value});}else{atts.push({type:'note',label:tr,value:tr});}});
+    newG.push({id:uid(),periodId,title,desc,done,attachments:atts});
   });
-  if(!newPeriods.length&&!newGoals.length){showToast('Nessun dato nuovo da importare');return;}
-  pendingImport={newPeriods,newGoals};
+  if(!newP.length&&!newG.length){toast('Nessun dato nuovo da importare');return;}
+  pendingImport={newP,newG,pm};
   const prev=document.getElementById('importPreview');
   prev.style.display='block';
-  let html=`<div class="preview-stat">+${newPeriods.length} period${newPeriods.length===1?'o':'i'} &nbsp;·&nbsp; +${newGoals.length} obiettiv${newGoals.length===1?'o':'i'}</div>`;
-  newGoals.slice(0,7).forEach(g=>{
-    const p=newPeriods.find(x=>x.id===g.periodId)||state.periods.find(x=>x.id===g.periodId);
-    const pl=p?(p.label||fmtDateFull(p.start)):'';
-    html+=`<div class="preview-row"><span>${g.done?'✅':'⬜'}</span><span style="flex:1;color:var(--text)">${esc(g.title)}</span><span style="font-size:11px;color:var(--text-hint)">${esc(pl)}</span></div>`;
+  let html=`<div class="preview-stat">+${newP.length} period${newP.length===1?'o':'i'} &nbsp;·&nbsp; +${newG.length} obiettiv${newG.length===1?'o':'i'}</div>`;
+  newG.slice(0,7).forEach(g=>{
+    const p=newP.find(x=>x.id===g.periodId)||S.periods.find(x=>x.id===g.periodId);
+    html+=`<div class="preview-row"><span>${g.done?'✅':'⬜'}</span><span style="flex:1;color:var(--text)">${esc(g.title)}</span><span style="font-size:11px;color:var(--text-hint)">${p?(p.label||fmtFull(p.start)):''}</span></div>`;
   });
-  if(newGoals.length>7)html+=`<div style="font-size:12px;color:var(--text-hint);padding:6px 0">... e altri ${newGoals.length-7}</div>`;
+  if(newG.length>7)html+=`<div style="font-size:12px;color:var(--text-hint);padding:6px 0">... e altri ${newG.length-7}</div>`;
   prev.innerHTML=html;
   document.getElementById('importConfirm').style.display='block';
 }
-
-document.getElementById('importConfirm').addEventListener('click',()=>{
+document.getElementById('importConfirm').onclick=()=>{
   if(!pendingImport)return;
-  const{newPeriods,newGoals}=pendingImport;
-  state.periods.push(...newPeriods); state.goals.push(...newGoals);
-  // Activate the period that contains today, if any
+  const{newP,newG}=pendingImport;
+  S.periods.push(...newP); S.goals.push(...newG);
   const today=todayStr();
-  const currentPeriod=state.periods.find(p=>p.start<=today&&p.end>=today);
-  if(currentPeriod) state.activePeriodId=currentPeriod.id;
+  const cur=[...S.periods].find(p=>p.start<=today&&p.end>=today);
+  if(cur) S.activePeriodId=cur.id;
   save();
   document.getElementById('sheetImport').classList.remove('open');
-  render(); state.goals.filter(g=>g.periodId===state.activePeriodId).forEach(g=>attachPanelEvents(g.id));
-  showToast(`Importati: ${newPeriods.length} periodi, ${newGoals.length} obiettivi ✓`);
+  render(); toast(`Importati: ${newP.length} periodi, ${newG.length} obiettivi ✓`);
   pendingImport=null;
-});
-
-// ── SERVICE WORKER ────────────────────────────────────────────────────
-if('serviceWorker' in navigator){
-  const sw=`self.addEventListener('install',()=>self.skipWaiting());self.addEventListener('activate',e=>e.waitUntil(clients.claim()));self.addEventListener('fetch',e=>{e.respondWith(fetch(e.request).catch(()=>caches.match(e.request)));});self.addEventListener('notificationclick',e=>{e.notification.close();e.waitUntil(clients.matchAll({type:'window'}).then(cs=>{if(cs.length)cs[0].focus();else clients.openWindow('.');}));});`;
-  const blob=new Blob([sw],{type:'application/javascript'});
-  navigator.serviceWorker.register(URL.createObjectURL(blob)).catch(()=>{});
-}
+};
 
 // ── NOTIFICATIONS ─────────────────────────────────────────────────────
-// Store for scheduled notification timeouts (key: periodId)
-const notifTimers = {};
-
-async function requestNotifPermission() {
-  if(!('Notification' in window)) return false;
-  if(Notification.permission === 'granted') return true;
-  if(Notification.permission === 'denied') return false;
-  const result = await Notification.requestPermission();
-  return result === 'granted';
+const notifTimers={};
+async function reqNotif(){
+  if(!('Notification' in window))return false;
+  if(Notification.permission==='granted')return true;
+  if(Notification.permission==='denied')return false;
+  return (await Notification.requestPermission())==='granted';
 }
-
-function scheduleExpiryNotification(period) {
-  if(!period) return;
-  // Cancel any existing timer for this period
-  if(notifTimers[period.id]) { clearTimeout(notifTimers[period.id]); delete notifTimers[period.id]; }
-
-  const today = todayStr();
-  if(period.end < today) return; // already expired
-
-  // Fire at 09:00 on the last day of the period
-  const fireAt = new Date(period.end + 'T09:00:00');
-  const now = new Date();
-  const msUntil = fireAt - now;
-  if(msUntil <= 0) {
-    // Already past 09:00 on end day — fire a reminder now if still today
-    if(period.end === today) fireExpiryNotif(period);
-    return;
-  }
-
-  notifTimers[period.id] = setTimeout(() => fireExpiryNotif(period), msUntil);
+function updateNotifBtn(){
+  const btn=document.getElementById('notifBtn');
+  const ok='Notification' in window && Notification.permission==='granted';
+  btn.textContent=ok?'🔔':'🔕';
+  btn.classList.toggle('active',ok);
 }
-
-function fireExpiryNotif(period) {
-  if(Notification.permission !== 'granted') return;
-  const label = period.label || `${fmtDateFull(period.start)} - ${fmtDateFull(period.end)}`;
-  const goals = state.goals.filter(g => g.periodId === period.id);
-  const done = goals.filter(g => g.done).length;
-  const total = goals.length;
-  const pct = total ? Math.round((done/total)*100) : 0;
-  new Notification('⏰ Periodo in scadenza oggi!', {
-    body: `"${label}" · ${done}/${total} obiettivi completati (${pct}%)`,
-    icon: 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 192 192\'%3E%3Crect width=\'192\' height=\'192\' rx=\'40\' fill=\'%23FF385C\'/%3E%3Ccircle cx=\'96\' cy=\'96\' r=\'52\' stroke=\'white\' stroke-width=\'10\' fill=\'none\'/%3E%3Ccircle cx=\'96\' cy=\'96\' r=\'22\' fill=\'white\'/%3E%3C/svg%3E',
-    badge: 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 96 96\'%3E%3Crect width=\'96\' height=\'96\' rx=\'20\' fill=\'%23FF385C\'/%3E%3C/svg%3E',
-    tag: 'period-expiry-' + period.id,
-    requireInteraction: true
+function fireNotif(period,isTest=false){
+  if(Notification.permission!=='granted')return;
+  const label=period.label||`${fmtFull(period.start)} - ${fmtFull(period.end)}`;
+  const pg=S.goals.filter(g=>g.periodId===period.id);
+  const done=pg.filter(g=>g.done).length,total=pg.length,pct=total?Math.round((done/total)*100):0;
+  new Notification(`${isTest?'🧪 TEST · ':'⏰ '}Periodo in scadenza oggi!`,{
+    body:`"${label}" · ${done}/${total} obiettivi completati (${pct}%)`,
+    tag:(isTest?'test-':'exp-')+period.id+(isTest?Date.now():''),
+    requireInteraction:!isTest
   });
 }
-
-async function enableNotifications() {
-  const granted = await requestNotifPermission();
-  if(!granted) { showToast('Notifiche non autorizzate'); return; }
-  // Schedule for current active period
-  const today = todayStr();
-  const current = state.periods.find(p => p.start <= today && p.end >= today);
-  if(current) {
-    scheduleExpiryNotification(current);
-    showToast('Reminder attivato per la scadenza del periodo ✓');
-  } else {
-    showToast('Nessun periodo attivo da monitorare');
-  }
-  updateNotifBtn();
+function scheduleNotif(period){
+  if(!period||Notification.permission!=='granted')return;
+  if(notifTimers[period.id])clearTimeout(notifTimers[period.id]);
+  const today=todayStr();
+  if(period.end<today)return;
+  const fireAt=new Date(period.end+'T09:00:00');
+  const ms=fireAt-new Date();
+  if(ms<=0){if(period.end===today)fireNotif(period);return;}
+  notifTimers[period.id]=setTimeout(()=>fireNotif(period),ms);
 }
-
-function updateNotifBtn() {
-  const btn = document.getElementById('notifBtn');
-  if(!btn) return;
-  const granted = 'Notification' in window && Notification.permission === 'granted';
-  btn.title = granted ? 'Notifiche attive' : 'Attiva reminder scadenza';
-  btn.style.background = granted ? '#FFE8EC' : '';
-  btn.style.borderColor = granted ? 'var(--coral)' : '';
-  btn.style.color = granted ? 'var(--coral)' : '';
-  btn.textContent = granted ? '🔔' : '🔕';
-}
-
-// Auto-reschedule on load if permission already granted
-window.addEventListener('load', () => {
+document.getElementById('notifBtn').onclick=async()=>{
+  const ok=await reqNotif();
+  if(!ok){toast('Notifiche non autorizzate — abilita dai settings del browser');return;}
   updateNotifBtn();
-  if('Notification' in window && Notification.permission === 'granted') {
-    const today = todayStr();
-    const current = state.periods.find(p => p.start <= today && p.end >= today);
-    if(current) scheduleExpiryNotification(current);
-  }
+  const today=todayStr();
+  const cur=S.periods.find(p=>p.start<=today&&p.end>=today);
+  if(cur){scheduleNotif(cur);toast('Reminder attivato ✓');}else toast('Nessun periodo attivo da monitorare');
+};
+document.getElementById('testBtn').onclick=async()=>{
+  const ok=await reqNotif(); if(!ok){toast('Autorizza le notifiche prima');return;}
+  updateNotifBtn();
+  const today=todayStr();
+  const cur=S.periods.find(p=>p.start<=today&&p.end>=today)||S.periods[S.periods.length-1];
+  if(!cur){toast('Nessun periodo disponibile per il test');return;}
+  fireNotif(cur,true); toast('Notifica test inviata ✓');
+};
+
+// close sheets on backdrop click
+['sheetPeriod','sheetGoal','sheetImport'].forEach(id=>{
+  document.getElementById(id).addEventListener('click',e=>{if(e.target.id===id)document.getElementById(id).classList.remove('open');});
 });
 
-// Also reschedule whenever a new period becomes active
-const _origSave = save;
-// Hook into period changes: reschedule after render when active period changes
-function rescheduleIfNeeded() {
-  if('Notification' in window && Notification.permission === 'granted') {
-    const today = todayStr();
-    const current = state.periods.find(p => p.start <= today && p.end >= today);
-    if(current) scheduleExpiryNotification(current);
-  }
+// ── INIT ──────────────────────────────────────────────────────────────
+updateNotifBtn();
+if('Notification' in window && Notification.permission==='granted'){
+  const today=todayStr();
+  const cur=S.periods.find(p=>p.start<=today&&p.end>=today);
+  if(cur)scheduleNotif(cur);
 }
-
 render();
-state.goals.filter(g=>g.periodId===state.activePeriodId).forEach(g=>attachPanelEvents(g.id));
-rescheduleIfNeeded();
-</script>
-
-<script>
-const manifest={name:"Biweekly Goals",short_name:"Goals",start_url:".",display:"standalone",background_color:"#ffffff",theme_color:"#FF385C",description:"Gestisci i tuoi obiettivi bisettimanali",icons:[{src:"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='40' fill='%23FF385C'/%3E%3Ccircle cx='96' cy='96' r='52' stroke='white' stroke-width='10' fill='none'/%3E%3Ccircle cx='96' cy='96' r='22' fill='white'/%3E%3C/svg%3E",sizes:"192x192",type:"image/svg+xml",purpose:"any maskable"}]};
-const link=document.createElement('link');link.rel='manifest';link.href='data:application/json,'+encodeURIComponent(JSON.stringify(manifest));document.head.appendChild(link);
 </script>
 </body>
 </html>
